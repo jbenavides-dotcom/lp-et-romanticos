@@ -149,7 +149,8 @@ function CabinSection() {
           >
             Cada cabaña es independiente y está construida en madera natural, en armonía con el entorno
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">Cuentan con baño privado, terraza y una atmósfera cálida y serena que invita al descanso profundo.</p>
+          <p className="text-gray-500 text-lg max-w-xl mx-auto mb-4">Cuentan con baño privado, terraza y una atmósfera cálida y serena que invita al descanso profundo.</p>
+          <p className="font-serif text-brand-dark text-xl font-medium italic">El lujo aquí no es exceso.<br />Es espacio, silencio y naturaleza.</p>
         </div>
 
         {/* Main cabin content */}
