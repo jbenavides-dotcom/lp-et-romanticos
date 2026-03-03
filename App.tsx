@@ -441,10 +441,22 @@ function UrgencySection() {
   return (
     <section
       ref={ref}
-      className={`py-24 bg-brand-dark scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      className={`py-24 relative overflow-hidden scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
       aria-labelledby="urgencia-titulo"
     >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={ASSETS.SUNSET}
+          alt=""
+          className="w-full h-full object-cover object-center scale-105"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85" />
+      </div>
+
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Flame icon */}
         <div className="flex justify-center mb-6">
           <span className="text-5xl">🔥</span>

@@ -23,17 +23,22 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       aria-label="Inicio — Cabañas privadas La Palma & El Tucán"
     >
-      {/* Background image */}
+      {/* Background video */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={ASSETS.HERO_BG}
-          alt="Vista aérea de La Palma & El Tucán — finca cafetera en Zipacón, Cundinamarca"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={ASSETS.HERO_BG}
           className="w-full h-full object-cover object-center"
-          loading="eager"
-          fetchPriority="high"
-        />
+          aria-hidden="true"
+        >
+          <source src={ASSETS.HERO_VIDEO_WEBM} type="video/webm" />
+          <source src={ASSETS.HERO_VIDEO_MP4} type="video/mp4" />
+        </video>
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65" />
       </div>
 
       {/* Content */}

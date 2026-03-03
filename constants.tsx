@@ -12,8 +12,11 @@ import type {
 
 // ─── Assets ───────────────────────────────────────────────────────────────────
 const CDN = 'https://res.cloudinary.com/dkqocgknd/image/upload/f_auto,q_auto';
+const CDN_VIDEO = 'https://res.cloudinary.com/dkqocgknd/video/upload/q_auto,w_1280';
 export const ASSETS = {
-  HERO_BG:   `${CDN},w_1600/lpet/romantico-hero.jpg`,
+  HERO_BG:        `${CDN},w_1600/lpet/romantico-hero.jpg`,
+  HERO_VIDEO_MP4: `${CDN_VIDEO}/lpet/romantico-hero-video.mp4`,
+  HERO_VIDEO_WEBM:`${CDN_VIDEO}/lpet/romantico-hero-video.webm`,
   CABANA:    `${CDN},w_1000/lpet/romantico-cabana.jpg`,
   TINA:      `${CDN},w_1000/lpet/romantico-tina.jpg`,
   SUNSET:    `${CDN},w_1000/lpet/romantico-sunset.jpg`,
