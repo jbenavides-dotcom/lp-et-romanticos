@@ -11,13 +11,17 @@ import type {
 } from './types';
 
 // ─── Assets ───────────────────────────────────────────────────────────────────
+const CDN = 'https://res.cloudinary.com/dkqocgknd/image/upload/f_auto,q_auto';
 export const ASSETS = {
-  HERO_BG: 'https://res.cloudinary.com/dsylu9a7k/image/upload/f_auto,q_auto,w_1400/lpet/hero-aerial.png',
-  CABANA: 'https://res.cloudinary.com/dsylu9a7k/image/upload/f_auto,q_auto,w_900/lpet/cabana-interior.png',
+  HERO_BG:   `${CDN},w_1600/lpet/romantico-hero.jpg`,
+  CABANA:    `${CDN},w_1000/lpet/romantico-cabana.jpg`,
+  TINA:      `${CDN},w_1000/lpet/romantico-tina.jpg`,
+  SUNSET:    `${CDN},w_1000/lpet/romantico-sunset.jpg`,
+  EXTERIOR:  `${CDN},w_1000/lpet/romantico-exterior.jpg`,
+  BOSQUE:    `${CDN},w_1000/lpet/romantico-bosque.jpg`,
+  // Imágenes genéricas finca (respaldo)
   CAFETALES: 'https://res.cloudinary.com/dsylu9a7k/image/upload/f_auto,q_auto,w_900/lpet/cafetales.png',
-  CAMINATA: 'https://res.cloudinary.com/dsylu9a7k/image/upload/f_auto,q_auto,w_900/lpet/caminata-bosque.png',
   DEGUSTACION: 'https://res.cloudinary.com/dsylu9a7k/image/upload/f_auto,q_auto,w_900/lpet/degustacion-cafe.png',
-  PROCESSING: 'https://res.cloudinary.com/dsylu9a7k/image/upload/f_auto,q_auto,w_900/lpet/processing-station.png',
 } as const;
 
 // ─── Contact & CTAs ───────────────────────────────────────────────────────────
