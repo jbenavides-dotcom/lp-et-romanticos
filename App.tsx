@@ -324,12 +324,18 @@ function ExperiencesSection() {
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/80 to-transparent flex items-center">
-            <div className="p-8 max-w-md">
-              <p className="text-brand-gold font-semibold text-sm uppercase tracking-widest mb-2">
-                Finca de clase mundial
+            <div className="p-8 max-w-lg">
+              <p className="text-brand-gold font-semibold text-sm uppercase tracking-widest mb-3">
+                Hotel boutique en una finca de clase mundial
               </p>
-              <p className="font-serif text-white text-2xl font-bold leading-snug">
-                Un proyecto de caficultura que ha puesto el nombre de Colombia en las mejores tazas del mundo. Hospedarte aquí es vivir esa historia desde adentro.
+              <p className="font-serif text-white text-xl font-bold leading-snug mb-3">
+                La Palma &amp; El Tucán no es un hotel tradicional.
+              </p>
+              <p className="text-white/80 text-sm leading-relaxed mb-2">
+                Es un proyecto de caficultura y humano que ha puesto el nombre de Colombia en las mejores tazas del mundo.
+              </p>
+              <p className="text-white/80 text-sm leading-relaxed italic">
+                Hospedarte aquí es vivir esa historia desde adentro.
               </p>
             </div>
           </div>
