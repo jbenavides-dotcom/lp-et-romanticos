@@ -141,15 +141,15 @@ function CabinSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Nuestras cabañas
+            Sobre nuestras cabañas
           </p>
           <h2
             id="cabanas-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
           >
-            Cada cabaña, diseñada para el encuentro
+            Cada cabaña es independiente y está construida en madera natural, en armonía con el entorno
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">Cada cabaña es independiente, construida en madera natural, con baño privado, terraza y una atmósfera cálida que invita al descanso profundo.</p>
+          <p className="text-gray-500 text-lg max-w-xl mx-auto">Cuentan con baño privado, terraza y una atmósfera cálida y serena que invita al descanso profundo.</p>
         </div>
 
         {/* Main cabin content */}
