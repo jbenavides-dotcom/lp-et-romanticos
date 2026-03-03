@@ -186,10 +186,6 @@ function CabinSection() {
                 <source src={ASSETS.TINA_VIDEO_MP4} type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-              <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-2.5 shadow-lg">
-                <p className="text-brand-dark font-bold text-sm">Tina privada</p>
-                <p className="text-gray-500 text-xs">En todas las cabañas</p>
-              </div>
             </div>
             {/* Bottom row */}
             <div className="grid grid-cols-2 gap-2">
