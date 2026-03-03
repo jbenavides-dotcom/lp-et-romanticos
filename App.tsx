@@ -243,7 +243,7 @@ function CabinSection() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {[
             { src: ASSETS.CAFETALES, alt: 'Cafetales de La Palma & El Tucán' },
-            { src: ASSETS.CAMINATA, alt: 'Caminata por el bosque de niebla' },
+            { src: ASSETS.BOSQUE, alt: 'Caminata por el bosque de niebla' },
             { src: ASSETS.DEGUSTACION, alt: 'Degustación de cafés de especialidad' },
           ].map((img) => (
             <div key={img.src} className="rounded-2xl overflow-hidden shadow-md aspect-[4/3]">
@@ -306,7 +306,7 @@ function ExperiencesSection() {
         {/* Processing station image */}
         <div className="mt-12 rounded-3xl overflow-hidden shadow-xl relative">
           <img
-            src={ASSETS.PROCESSING}
+            src={ASSETS.EXTERIOR}
             alt="Proceso de beneficio del café en La Palma & El Tucán"
             className="w-full h-64 sm:h-80 object-cover"
             loading="lazy"
