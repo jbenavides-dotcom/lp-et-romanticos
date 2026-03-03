@@ -155,19 +155,31 @@ function CabinSection() {
 
         {/* Main cabin content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Image */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src={ASSETS.CABANA}
-              alt="Interior de cabaña romántica con tina privada — La Palma & El Tucán"
-              className="w-full h-[420px] object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-            {/* Badge on image */}
-            <div className="absolute bottom-5 left-5 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
-              <p className="text-brand-dark font-bold text-sm">Tina privada</p>
-              <p className="text-gray-500 text-xs">En todas las cabañas</p>
+          {/* Media Gallery */}
+          <div className="flex flex-col gap-2">
+            {/* Tina video - main */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <video autoPlay muted loop playsInline poster={ASSETS.TINA} className="w-full h-[280px] object-cover">
+                <source src={ASSETS.TINA_VIDEO_WEBM} type="video/webm" />
+                <source src={ASSETS.TINA_VIDEO_MP4} type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-2.5 shadow-lg">
+                <p className="text-brand-dark font-bold text-sm">Tina privada</p>
+                <p className="text-gray-500 text-xs">En todas las cabañas</p>
+              </div>
+            </div>
+            {/* Bottom row */}
+            <div className="grid grid-cols-2 gap-2">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg">
+                <video autoPlay muted loop playsInline poster={ASSETS.CABANA} className="w-full h-[180px] object-cover">
+                  <source src={ASSETS.CAMA_VIDEO_WEBM} type="video/webm" />
+                  <source src={ASSETS.CAMA_VIDEO_MP4} type="video/mp4" />
+                </video>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden shadow-lg">
+                <img src={ASSETS.CABANA} alt="Interior cabaña romántica" className="w-full h-[180px] object-cover" loading="lazy" />
+              </div>
             </div>
           </div>
 
