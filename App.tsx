@@ -11,7 +11,6 @@ import { useAnalytics } from './hooks/useAnalytics';
 import {
   ASSETS,
   STATS,
-  SEARCH_TAGS,
   CABIN_FEATURES,
   PERFECT_FOR,
   EXPERIENCES,
@@ -69,6 +68,21 @@ function StatsBar() {
 // ─── Search Section ───────────────────────────────────────────────────────────
 function SearchSection() {
   const { ref, isVisible } = useScrollReveal();
+
+  const POETIC_ITEMS = [
+    'Despertar con el sonido de los pájaros.',
+    'Disfrutar de un atardecer colorido.',
+    'Caminar entre montañas a 1.800 metros de altura.',
+    'Dormir profundamente en medio del silencio.',
+  ];
+
+  const PHOTO_GRID = [
+    { src: ASSETS.BOSQUE,    alt: 'Bosque de niebla' },
+    { src: ASSETS.SUNSET,    alt: 'Atardecer desde la cabaña' },
+    { src: ASSETS.EXTERIOR,  alt: 'Exterior de la cabaña' },
+    { src: ASSETS.CABANA,    alt: 'Interior de la cabaña' },
+  ];
+
   return (
     <section
       id="busqueda"
@@ -76,49 +90,57 @@ function SearchSection() {
       className={`py-20 bg-brand-light scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
       aria-labelledby="busqueda-titulo"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-          ¿Estás buscando esto?
-        </p>
-        <h2
-          id="busqueda-titulo"
-          className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-10"
-        >
-          Si estás buscando esto, estás en el lugar correcto.
-        </h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-        {/* Search tags grid */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {SEARCH_TAGS.map((tag) => (
-            <span
-              key={tag.text}
-              className="flex items-center gap-1.5 bg-white border border-brand-beige text-brand-dark px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:border-brand-pink hover:text-brand-pink transition-colors duration-200 cursor-default"
+          {/* Left column — text */}
+          <div>
+            <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
+              Un refugio para desconectarse juntos
+            </p>
+            <h2
+              id="busqueda-titulo"
+              className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-5"
             >
-              <svg
-                className="w-3 h-3 text-brand-gold flex-shrink-0"
-                viewBox="0 0 12 12"
-                fill="none"
-                aria-hidden="true"
-              >
-                <circle cx="5" cy="5" r="4" stroke="currentColor" strokeWidth="1.5" />
-                <path
-                  d="M8.5 8.5L11 11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-              {tag.text}
-            </span>
-          ))}
-        </div>
+              Si estás buscando esto, estás en el lugar correcto.
+            </h2>
+            <p className="text-gray-600 text-base leading-relaxed mb-7">
+              Nuestras cabañas privadas, rodeadas de cafetales y bosque de niebla, están
+              diseñadas para ofrecer intimidad, calma y comodidad en su forma más auténtica.
+            </p>
+            <ul className="space-y-3 mb-7">
+              {POETIC_ITEMS.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span
+                    className="flex-shrink-0 w-2 h-2 rounded-full bg-brand-pink mt-2"
+                    aria-hidden="true"
+                  />
+                  <span className="text-gray-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="font-serif text-brand-dark text-lg italic">
+              Eso es lo que define una escapada aquí.
+            </p>
+          </div>
 
-        {/* Paragraph */}
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-brand-beige/50 max-w-2xl mx-auto">
-          <p className="text-gray-600 text-base leading-relaxed">
-            Aquí la experiencia gira alrededor de algo más esencial: naturaleza viva, arquitectura cálida, silencio real y café extraordinario.{' '}
-            <strong className="text-brand-dark">Un refugio para desconectarse juntos.</strong>
-          </p>
+          {/* Right column — 2×2 photo grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {PHOTO_GRID.map((photo) => (
+              <div
+                key={photo.src}
+                className="rounded-2xl overflow-hidden aspect-[4/3]"
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
