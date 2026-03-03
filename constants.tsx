@@ -83,19 +83,19 @@ export const SEARCH_TAGS: SearchTag[] = [
 
 // ─── Cabin Features ───────────────────────────────────────────────────────────
 export const CABIN_FEATURES: CabinFeature[] = [
-  { text: 'Baño privado con tina' },
-  { text: 'Vista increíble al bosque de niebla' },
-  { text: 'Diseño en madera natural' },
-  { text: 'Ambiente cálido y elegante' },
-  { text: 'Terraza o balcón privado' },
-  { text: 'Ropa de cama de lujo' },
+  { text: 'Cabaña privada en medio del cafetal' },
+  { text: 'Desayuno artesanal preparado con productos frescos' },
+  { text: 'Coffee Tour guiado por nuestra finca' },
+  { text: 'Degustación de cafés de especialidad' },
+  { text: 'Senderos naturales en bosque de niebla' },
+  { text: 'Espacios comunes íntimos y rodeados de naturaleza' },
 ];
 
 export const PERFECT_FOR: PerfectForItem[] = [
   { emoji: '💑', label: 'Aniversarios' },
-  { emoji: '💍', label: 'Propuestas de matrimonio' },
   { emoji: '🎂', label: 'Cumpleaños especiales' },
-  { emoji: '🌿', label: 'Desconexión total' },
+  { emoji: '🌿', label: 'Escapadas de fin de semana' },
+  { emoji: '✨', label: 'Momentos que merecen atención y tiempo' },
 ];
 
 // ─── Experiences ──────────────────────────────────────────────────────────────
@@ -134,25 +134,25 @@ export const EXPERIENCES: Experience[] = [
 
 // ─── Distance & Privacy ───────────────────────────────────────────────────────
 export const DISTANCE_POINTS: DistancePoint[] = [
-  { icon: '📍', text: '90 minutos desde Bogotá' },
-  { icon: '🚗', text: 'Acceso fácil en carro' },
-  { icon: '🌤️', text: 'Altura ideal — clima fresco de montaña' },
-  { icon: '📶', text: 'Desconéctate del mundo, no del confort' },
+  { icon: '🚗', text: '90 minutos en carro' },
+  { icon: '🛣️', text: 'Acceso fácil, sin vías difíciles ni 4x4' },
+  { icon: '🌤️', text: 'Clima fresco de montaña a 1.800 m de altura' },
+  { icon: '🌿', text: 'Privacidad real, lejos del ruido de la ciudad' },
 ];
 
 export const PRIVACY_POINTS: PrivacyPoint[] = [
-  { text: 'Sí. Somos un hotel boutique con pocas cabañas.' },
-  { text: 'No es un hotel masivo.' },
-  { text: 'Cada cabaña es independiente, rodeada de naturaleza.' },
-  { text: 'El espacio público es íntimo, cuidadosamente diseñado para enmarcar los mejores encuentros.' },
+  { text: 'Un cambio de paisaje sin viajes largos.' },
+  { text: 'Una pausa verdadera sin renunciar al confort.' },
+  { text: 'Cada cabaña es independiente, construida en madera natural.' },
+  { text: 'Espacios íntimos diseñados para el descanso y el encuentro.' },
 ];
 
 // ─── FAQ Items ────────────────────────────────────────────────────────────────
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: '¿Todas las cabañas tienen tina?',
+    question: '¿Las cabañas tienen baño privado?',
     answer:
-      'Sí. Todas nuestras cabañas cuentan con baño privado con tina. Es uno de nuestros sellos más apreciados.',
+      'Sí. Todas nuestras cabañas cuentan con baño privado y están diseñadas para ofrecer privacidad y comodidad en medio de la naturaleza.',
   },
   {
     question: '¿Está incluido el desayuno?',

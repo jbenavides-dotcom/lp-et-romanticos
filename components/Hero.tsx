@@ -51,21 +51,20 @@ export default function Hero() {
 
         {/* H1 */}
         <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-          Cabañas privadas en una{' '}
+          Escapadas en pareja en una{' '}
           <span className="text-brand-gold italic">finca cafetera</span>{' '}
           de clase mundial
         </h1>
 
         {/* H2 italic */}
         <h2 className="font-serif text-xl sm:text-2xl italic text-brand-beige mb-6 font-light">
-          A solo 90 minutos de Bogotá
+          Finca cafetera · Zipacón, Cundinamarca · A 90 minutos de Bogotá
         </h2>
 
         {/* Subheadline */}
         <p className="text-white/80 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          Escápate este fin de semana a una experiencia boutique en medio de la
-          naturaleza. Una finca cafetera reconocida mundialmente, con cabañas
-          privadas diseñadas para el encuentro y la desconexión.
+          Escápate a un hotel boutique inmerso en una finca cafetera reconocida mundialmente.
+          Un lugar pensado para bajar el ritmo, respirar profundo y volver a conversar sin afán.
         </p>
 
         {/* Trust chips */}

@@ -116,9 +116,8 @@ function SearchSection() {
         {/* Paragraph */}
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-brand-beige/50 max-w-2xl mx-auto">
           <p className="text-gray-600 text-base leading-relaxed">
-            <strong className="text-brand-dark">La Palma & El Tucán</strong> no es un hotel
-            tradicional. Es un refugio íntimo en una finca cafetera reconocida mundialmente.
-            Aquí solo vienes a relajarte y desconectarte.
+            Aquí la experiencia gira alrededor de algo más esencial: naturaleza viva, arquitectura cálida, silencio real y café extraordinario.{' '}
+            <strong className="text-brand-dark">Un refugio para desconectarse juntos.</strong>
           </p>
         </div>
       </div>
@@ -150,7 +149,7 @@ function CabinSection() {
           >
             Cada cabaña, diseñada para el encuentro
           </h2>
-          <p className="text-gray-500 text-lg">Baño privado con tina en todas.</p>
+          <p className="text-gray-500 text-lg max-w-xl mx-auto">Cada cabaña es independiente, construida en madera natural, con baño privado, terraza y una atmósfera cálida que invita al descanso profundo.</p>
         </div>
 
         {/* Main cabin content */}
@@ -186,7 +185,7 @@ function CabinSection() {
           {/* Features */}
           <div>
             <h3 className="font-serif text-2xl font-semibold text-brand-dark mb-6">
-              Cada cabaña incluye:
+              Lo que incluye tu estadía:
             </h3>
             <ul className="space-y-4 mb-8">
               {CABIN_FEATURES.map((feature) => (
@@ -215,7 +214,7 @@ function CabinSection() {
             {/* Perfect for */}
             <div className="bg-brand-light rounded-2xl p-5 mb-8">
               <p className="text-brand-dark font-semibold mb-3 text-sm uppercase tracking-wide">
-                Perfecta para:
+                Ideal para:
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {PERFECT_FOR.map((item) => (
@@ -329,7 +328,7 @@ function ExperiencesSection() {
                 Finca de clase mundial
               </p>
               <p className="font-serif text-white text-2xl font-bold leading-snug">
-                Reconocida por los mejores cafés de especialidad de Colombia
+                Un proyecto de caficultura que ha puesto el nombre de Colombia en las mejores tazas del mundo. Hospedarte aquí es vivir esa historia desde adentro.
               </p>
             </div>
           </div>
@@ -358,7 +357,7 @@ function DistanceSection() {
             id="ubicacion-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
           >
-            Cerca de Bogotá. Lejos del mundo.
+            Cerca de Bogotá. Lejos del ruido.
           </h2>
         </div>
 
@@ -436,7 +435,7 @@ function DistanceSection() {
                 </span>
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Toda la comodidad de un hotel boutique, en medio de la naturaleza.
+                Toda la comodidad de un hotel boutique, en medio de la naturaleza. Sin aglomeraciones, sin ruido.
               </p>
             </div>
           </div>
@@ -479,12 +478,12 @@ function UrgencySection() {
           className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
         >
           Los fines de semana{' '}
-          <span className="text-brand-pink italic">se llenan rápido</span>
+          <span className="text-brand-pink italic">suelen llenarse con anticipación</span>
         </h2>
 
         <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-          Si estás planeando un próximo aniversario, cumpleaños o fin de semana especial —
-          te recomendamos revisar disponibilidad hoy mismo.
+          Si estás planeando una pausa en pareja, te recomendamos revisar disponibilidad con tiempo.
+          Reserva directamente con nosotros y vive la experiencia completa.
         </p>
 
         {/* Availability indicator */}
