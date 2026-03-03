@@ -135,9 +135,9 @@ export const EXPERIENCES: Experience[] = [
 // ─── Distance & Privacy ───────────────────────────────────────────────────────
 export const DISTANCE_POINTS: DistancePoint[] = [
   { icon: '🚗', text: '90 minutos en carro' },
-  { icon: '🛣️', text: 'Acceso fácil, sin vías difíciles ni 4x4' },
-  { icon: '🌤️', text: 'Clima fresco de montaña a 1.800 m de altura' },
-  { icon: '🌿', text: 'Privacidad real, lejos del ruido de la ciudad' },
+  { icon: '🛣️', text: 'Acceso fácil' },
+  { icon: '🌤️', text: 'Clima fresco de montaña' },
+  { icon: '🌿', text: 'Privacidad real' },
 ];
 
 export const PRIVACY_POINTS: PrivacyPoint[] = [
