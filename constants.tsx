@@ -34,7 +34,7 @@ export const ASSETS = {
 // ─── Contact & CTAs ───────────────────────────────────────────────────────────
 export const WHATSAPP_URL =
   'https://wa.me/573189565617?text=Hola%2C%20quiero%20información%20sobre%20las%20cabañas%20románticas';
-export const CLOUDBEDS_URL = 'https://hotels.cloudbeds.com/es/reservation/msPdXG';
+export const CLOUDBEDS_URL = 'https://hotels.cloudbeds.com/es/reservation/yB0fEt?ga_sess_id=885637364.1682640000&currency=cop';
 export const EMAIL = 'reservas@lapalmayeltucan.com';
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
