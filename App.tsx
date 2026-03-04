@@ -363,6 +363,96 @@ function ExperiencesSection() {
   );
 }
 
+// ─── Reviews Section ──────────────────────────────────────────────────────────
+function ReviewsSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  const REVIEWS = [
+    {
+      text: 'Una experiencia que no esperaba encontrar tan cerca de la ciudad. Las cabañas son acogedoras, el silencio es real y el Coffee Tour fue lo mejor del viaje. Volvimos al mes siguiente.',
+      author: 'Visitante desde Bogotá',
+      stars: 5,
+    },
+    {
+      text: 'Llegamos por nuestro aniversario y fue mucho mejor de lo que imaginamos. Desayuno delicioso, cabaña íntima, atardecer espectacular. El tipo de lugar al que uno quiere volver.',
+      author: 'Pareja de aniversario',
+      stars: 5,
+    },
+    {
+      text: 'Sabía que La Palma & El Tucán era conocida por el café, pero no imaginé que el hospedaje fuera tan especial. La combinación de naturaleza, arquitectura en madera y el café de especialidad lo hace único en Colombia.',
+      author: 'Viajero de Medellín',
+      stars: 5,
+    },
+    {
+      text: 'Ya es la tercera vez que venimos. El bosque de niebla, el silencio y el desayuno artesanal son razones suficientes para repetir. Un refugio real a 90 minutos de Bogotá.',
+      author: 'Huésped recurrente',
+      stars: 5,
+    },
+  ];
+
+  return (
+    <section
+      ref={ref}
+      className={`py-20 bg-brand-navy scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      aria-labelledby="resenas-titulo"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <p className="text-brand-gold font-semibold tracking-widest uppercase text-sm mb-3">
+            Lo que dicen nuestros huéspedes
+          </p>
+          <h2
+            id="resenas-titulo"
+            className="font-serif text-3xl sm:text-4xl font-bold text-white"
+          >
+            Experiencias reales
+          </h2>
+          {/* Aggregate rating */}
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} className="w-5 h-5 text-brand-gold" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
+            </div>
+            <span className="text-white font-bold text-lg">4.9</span>
+            <span className="text-white/50 text-sm">/ 5</span>
+          </div>
+        </div>
+
+        {/* Reviews grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {REVIEWS.map((review, i) => (
+            <article
+              key={i}
+              className="bg-white/8 backdrop-blur-sm border border-white/10 rounded-2xl p-6 flex flex-col gap-4 hover:bg-white/12 transition-colors duration-200"
+            >
+              {/* Stars */}
+              <div className="flex gap-0.5">
+                {[...Array(review.stars)].map((_, j) => (
+                  <svg key={j} className="w-4 h-4 text-brand-gold" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              {/* Quote */}
+              <p className="text-white/80 text-sm leading-relaxed flex-1 italic">
+                "{review.text}"
+              </p>
+              {/* Author */}
+              <p className="text-brand-gold text-xs font-semibold tracking-wide uppercase">
+                — {review.author}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Distance Section ─────────────────────────────────────────────────────────
 function DistanceSection() {
   const { ref, isVisible } = useScrollReveal();
@@ -828,6 +918,7 @@ export default function App() {
         <SearchSection />
         <CabinSection />
         <ExperiencesSection />
+        <ReviewsSection />
         <DistanceSection />
         <UrgencySection />
         <FaqSection />
