@@ -45,7 +45,7 @@ function WhatsAppFloat() {
 // ─── Stats Bar ────────────────────────────────────────────────────────────────
 function StatsBar() {
   return (
-    <section className="bg-brand-navy py-10" aria-label="Estadísticas clave">
+    <section className="bg-brand-dark py-10" aria-label="Estadísticas clave">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {STATS.map((stat) => (
@@ -341,7 +341,7 @@ function ExperiencesSection() {
             className="w-full h-64 sm:h-80 object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/80 to-transparent flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/90 to-transparent flex items-center">
             <div className="p-8 max-w-lg">
               <p className="text-brand-gold font-semibold text-sm uppercase tracking-widest mb-3">
                 Hotel boutique en una finca de clase mundial
@@ -393,7 +393,7 @@ function ReviewsSection() {
   return (
     <section
       ref={ref}
-      className={`py-20 bg-brand-navy scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      className={`py-20 bg-brand-dark scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
       aria-labelledby="resenas-titulo"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -474,7 +474,7 @@ function DistanceSection() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Distance column */}
-          <div className="bg-brand-navy rounded-3xl p-8 text-white">
+          <div className="bg-brand-dark rounded-3xl p-8 text-white">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center flex-shrink-0">
                 <MapPin className="w-5 h-5 text-brand-gold" aria-hidden="true" />
