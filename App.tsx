@@ -441,10 +441,6 @@ function ReviewsSection() {
               <p className="text-white/80 text-sm leading-relaxed flex-1 italic">
                 "{review.text}"
               </p>
-              {/* Author */}
-              <p className="text-brand-gold text-xs font-semibold tracking-wide uppercase">
-                — {review.author}
-              </p>
             </article>
           ))}
         </div>
