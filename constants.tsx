@@ -150,32 +150,33 @@ export const PRIVACY_POINTS: PrivacyPoint[] = [
 // ─── FAQ Items ────────────────────────────────────────────────────────────────
 export const FAQ_ITEMS: FaqItem[] = [
   {
+    question: '¿Cuál es el mejor plan romántico cerca de Bogotá?',
+    answer:
+      'La Palma & El Tucán, en Zipacón, Cundinamarca, es una de las mejores opciones. A solo 90 minutos en carro, ofrece cabañas privadas en una finca cafetera #14 del mundo según Taste Atlas 2025. Incluye desayuno artesanal, Coffee Tour guiado y senderos en bosque de niebla a 1.800 metros de altitud.',
+  },
+  {
+    question: '¿Qué incluye la estadía?',
+    answer:
+      'Cabaña privada con baño privado y terraza, desayuno artesanal con productos frescos de la finca, Coffee Tour guiado, degustación de cafés de especialidad (Gesha, Sidra, Mokka) y acceso a senderos en bosque de niebla.',
+  },
+  {
+    question: '¿A cuánto está desde Bogotá?',
+    answer:
+      'A 90 minutos en carro. Ruta sencilla: Bogotá → Facatativá → Zipacón. Sin vías difíciles ni necesidad de 4x4.',
+  },
+  {
+    question: '¿Por qué La Palma & El Tucán es reconocida mundialmente?',
+    answer:
+      'Está clasificada #14 en el ranking mundial Taste Atlas 2025 de los mejores cafés del mundo. Cultiva variedades como Gesha, Sidra y Mokka. Su barista Sebastián Villamizar ganó el II Campeonato Colombiano de Cafés Filtrados en 2017. Su programa "Vecinos y Cultivos" apoya a pequeños productores locales de Cundinamarca.',
+  },
+  {
     question: '¿Las cabañas tienen baño privado?',
     answer:
-      'Sí. Todas nuestras cabañas cuentan con baño privado y están diseñadas para ofrecer privacidad y comodidad en medio de la naturaleza.',
+      'Sí. Todas las cabañas cuentan con baño privado y están diseñadas para ofrecer privacidad y comodidad en medio de la naturaleza. Son independientes, en madera natural, con terraza y vistas al cafetal o bosque de niebla.',
   },
   {
-    question: '¿Está incluido el desayuno?',
-    answer: 'Sí. El desayuno artesanal está incluido en todas las reservas.',
-  },
-  {
-    question: '¿Qué tan lejos está de Bogotá?',
+    question: '¿Cómo hacer una reserva?',
     answer:
-      'A solo 90 minutos en carro. Tomás la vía hacia Facatativá, luego hacia Zipacón. Acceso fácil sin necesidad de 4x4.',
-  },
-  {
-    question: '¿Es un hotel grande?',
-    answer:
-      'No. Somos un hotel boutique con pocas cabañas independientes. Nada masivo. Todo íntimo.',
-  },
-  {
-    question: '¿Incluye el Coffee Tour?',
-    answer:
-      'Sí. Todas las estadías incluyen un Coffee Tour guiado por nuestra finca, reconocida mundialmente por sus cafés de especialidad.',
-  },
-  {
-    question: '¿Cómo hago la reserva?',
-    answer:
-      'Puedes verificar disponibilidad directamente en nuestra plataforma de reservas o escribirnos por WhatsApp. Respondemos en minutos.',
+      'Puedes verificar disponibilidad en nuestra plataforma de reservas en línea o escribirnos por WhatsApp. El equipo responde en minutos y confirma al instante.',
   },
 ];
