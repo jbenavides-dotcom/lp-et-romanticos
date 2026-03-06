@@ -417,7 +417,7 @@ function ReviewsSection() {
                 </svg>
               ))}
             </div>
-            <span className="text-white font-bold text-lg">4.9</span>
+            <span className="text-white font-bold text-lg">5.0</span>
             <span className="text-white/50 text-sm">/ 5</span>
           </div>
         </div>
