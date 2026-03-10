@@ -63,9 +63,9 @@ export const STATS: Stat[] = [
     sublabel: 'Acceso fácil en carro',
   },
   {
-    value: '10',
-    label: 'Cabañas privadas',
-    sublabel: 'Independientes con tina',
+    value: '☕',
+    label: 'Desayuno incluido',
+    sublabel: 'Artesanal cada mañana',
   },
 ];
 
