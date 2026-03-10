@@ -1,5 +1,24 @@
-import { useState } from 'react';
-import { ChevronDown, ChevronUp, MapPin, Clock, Mountain, Wifi } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import {
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  Car,
+  Check,
+  Star,
+  Mail,
+  Shield,
+  Trees,
+  Coffee,
+  UtensilsCrossed,
+  Mountain,
+  Bird,
+  Heart,
+  Wine,
+  Flame,
+} from 'lucide-react';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -12,16 +31,34 @@ import {
   ASSETS,
   STATS,
   CABIN_FEATURES,
-  PERFECT_FOR,
   EXPERIENCES,
-  DISTANCE_POINTS,
-  PRIVACY_POINTS,
   FAQ_ITEMS,
-  CLOUDBEDS_URL,
   WHATSAPP_URL,
   EMAIL,
   NAV_LINKS,
+  WHY_CARDS,
+  PRICE_CARDS,
+  REVIEWS,
+  COPY,
 } from './constants';
+
+// ─── Icon map for experiences ─────────────────────────────────────────────────
+const EXPERIENCE_ICONS: Record<string, React.ReactNode> = {
+  Coffee: <Coffee className="w-6 h-6" />,
+  Mountain: <Mountain className="w-6 h-6" />,
+  Bird: <Bird className="w-6 h-6" />,
+  Heart: <Heart className="w-6 h-6" />,
+  Wine: <Wine className="w-6 h-6" />,
+  Flame: <Flame className="w-6 h-6" />,
+};
+
+// ─── Icon map for why cards ───────────────────────────────────────────────────
+const WHY_ICONS: Record<string, React.ReactNode> = {
+  Shield: <Shield className="w-6 h-6" />,
+  Trees: <Trees className="w-6 h-6" />,
+  Coffee: <Coffee className="w-6 h-6" />,
+  UtensilsCrossed: <UtensilsCrossed className="w-6 h-6" />,
+};
 
 // ─── WhatsApp floating button ─────────────────────────────────────────────────
 function FloatingCTA() {
@@ -47,9 +84,14 @@ function StatsBar() {
   return (
     <section className="bg-brand-dark py-10" aria-label="Estadísticas clave">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+          {STATS.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`text-center py-4 ${
+                i < STATS.length - 1 ? 'lg:border-r lg:border-brand-gold/30' : ''
+              }`}
+            >
               <div className="font-serif text-3xl sm:text-4xl font-bold text-brand-gold mb-1">
                 {stat.value}
               </div>
@@ -65,82 +107,94 @@ function StatsBar() {
   );
 }
 
-// ─── Search Section ───────────────────────────────────────────────────────────
-function SearchSection() {
+// ─── Why Section ──────────────────────────────────────────────────────────────
+function WhySection() {
   const { ref, isVisible } = useScrollReveal();
-
-  const POETIC_ITEMS = [
-    'Despertar con el sonido de los pájaros.',
-    'Disfrutar de un atardecer colorido.',
-    'Caminar entre montañas a 1.800 metros de altura.',
-    'Dormir profundamente en medio del silencio.',
-  ];
-
-  const PHOTO_GRID = [
-    { src: ASSETS.BOSQUE,    alt: 'Bosque de niebla' },
-    { src: ASSETS.SUNSET,    alt: 'Atardecer desde la cabaña' },
-    { src: ASSETS.EXTERIOR,  alt: 'Exterior de la cabaña' },
-    { src: ASSETS.CABANA,    alt: 'Interior de la cabaña' },
-  ];
-
   return (
     <section
-      id="busqueda"
+      id="por-que"
       ref={ref}
       className={`py-20 bg-brand-light scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
-      aria-labelledby="busqueda-titulo"
+      aria-labelledby="por-que-titulo"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="text-center mb-14">
+          <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
+            Lo que nos hace diferentes
+          </p>
+          <h2
+            id="por-que-titulo"
+            className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-5"
+          >
+            ¿Por qué La Palma y el Tucán?
+          </h2>
+          <p className="text-gray-600 text-base leading-relaxed max-w-4xl mx-auto">
+            {COPY.WHY_INTRO}
+          </p>
+        </div>
 
-          {/* Left column — text */}
+        <div className="grid sm:grid-cols-2 gap-6">
+          {WHY_CARDS.map((card) => (
+            <article
+              key={card.title}
+              className="bg-white rounded-2xl p-6 shadow-sm border border-brand-beige/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200 group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-brand-pink/10 flex items-center justify-center text-brand-pink mb-4 group-hover:bg-brand-pink group-hover:text-white transition-colors duration-200">
+                {WHY_ICONS[card.iconName]}
+              </div>
+              <h3 className="font-serif text-lg font-semibold text-brand-dark mb-2">
+                {card.title}
+              </h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{card.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Our Story Section ───────────────────────────────────────────────────────
+function OurStorySection() {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section
+      ref={ref}
+      className={`py-20 bg-white scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      aria-labelledby="historia-titulo"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Image */}
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <img
+              src={ASSETS.DEGUSTACION}
+              alt="Degustación de café de especialidad en La Palma y el Tucán"
+              className="w-full h-[400px] object-cover"
+              loading="lazy"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+              <p className="text-white font-serif text-lg italic">
+                &ldquo;El café que sirves en el desayuno viene de los mismos cafetales que rodean tu cabaña&rdquo;
+              </p>
+            </div>
+          </div>
+
+          {/* Text */}
           <div>
             <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-              Un refugio para desconectarse juntos
+              Nuestra historia
             </p>
             <h2
-              id="busqueda-titulo"
-              className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-5"
+              id="historia-titulo"
+              className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-6"
             >
-              Si estás buscando esto, estás en el lugar correcto.
+              De finca cafetera a destino de clase mundial
             </h2>
-            <p className="text-gray-600 text-base leading-relaxed mb-7">
-              Nuestras cabañas privadas, rodeadas de cafetales y bosque de niebla, están
-              diseñadas para ofrecer intimidad, calma y comodidad en su forma más auténtica.
-            </p>
-            <ul className="space-y-3 mb-7">
-              {POETIC_ITEMS.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span
-                    className="flex-shrink-0 w-2 h-2 rounded-full bg-brand-pink mt-2"
-                    aria-hidden="true"
-                  />
-                  <span className="text-gray-700">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="font-serif text-brand-dark text-lg italic">
-              Eso es lo que define una escapada aquí.
+            <p className="text-gray-600 text-base leading-relaxed">
+              {COPY.OUR_STORY}
             </p>
           </div>
-
-          {/* Right column — 2×2 photo grid */}
-          <div className="grid grid-cols-2 gap-3">
-            {PHOTO_GRID.map((photo) => (
-              <div
-                key={photo.src}
-                className="rounded-2xl overflow-hidden aspect-[4/3]"
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-
         </div>
       </div>
     </section>
@@ -150,7 +204,7 @@ function SearchSection() {
 // ─── Cabin Section ────────────────────────────────────────────────────────────
 function CabinSection() {
   const { ref, isVisible } = useScrollReveal();
-  const { trackAvailabilityClick, trackWhatsAppClick } = useAnalytics();
+  const { trackWhatsAppClick } = useAnalytics();
 
   return (
     <section
@@ -163,20 +217,22 @@ function CabinSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Sobre nuestras cabañas
+            Tu refugio privado
           </p>
           <h2
             id="cabanas-titulo"
-            className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
+            className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
           >
-            Cada cabaña es independiente y está construida en madera natural, en armonía con el entorno
+            Tu cabaña privada en el bosque
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto mb-4">Cuentan con baño privado, terraza y una atmósfera cálida y serena que invita al descanso profundo.</p>
-          <p className="font-serif text-brand-dark text-xl font-medium italic">El lujo aquí no es exceso.<br />Es espacio, silencio y naturaleza.</p>
         </div>
 
+        <p className="text-gray-600 text-base leading-relaxed max-w-3xl mx-auto text-center mb-12">
+          {COPY.CABIN_DESCRIPTION}
+        </p>
+
         {/* Main cabin content */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Media Gallery */}
           <div className="flex flex-col gap-2">
             {/* Tina video - main */}
@@ -196,7 +252,7 @@ function CabinSection() {
                 </video>
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-lg">
-                <img src={ASSETS.CABANA} alt="Interior cabaña romántica" className="w-full h-[180px] object-cover" loading="lazy" />
+                <img src={ASSETS.EXTERIOR} alt="Exterior cabaña en bosque de niebla" className="w-full h-[180px] object-cover" loading="lazy" />
               </div>
             </div>
           </div>
@@ -204,87 +260,30 @@ function CabinSection() {
           {/* Features */}
           <div>
             <h3 className="font-serif text-2xl font-semibold text-brand-dark mb-6">
-              Lo que incluye tu estadía:
+              Cada cabaña incluye:
             </h3>
             <ul className="space-y-4 mb-8">
               {CABIN_FEATURES.map((feature) => (
                 <li key={feature.text} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-pink/15 flex items-center justify-center mt-0.5">
-                    <svg
-                      className="w-3 h-3 text-brand-pink"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M2 6L4.5 8.5L10 3"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <Check className="w-3 h-3 text-brand-pink" aria-hidden="true" />
                   </span>
                   <span className="text-gray-700">{feature.text}</span>
                 </li>
               ))}
             </ul>
 
-            {/* Perfect for */}
-            <div className="bg-brand-light rounded-2xl p-5 mb-8">
-              <p className="text-brand-dark font-semibold mb-3 text-sm uppercase tracking-wide">
-                Ideal para:
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {PERFECT_FOR.map((item) => (
-                  <div key={item.label} className="flex items-center gap-2">
-                    <span className="text-xl">{item.emoji}</span>
-                    <span className="text-gray-700 text-sm">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href={CLOUDBEDS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackAvailabilityClick('cabanas_section')}
-                className="flex-1 text-center bg-brand-pink text-white py-3.5 rounded-full font-semibold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-0.5"
-              >
-                Ver disponibilidad
-              </a>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick('cabanas_section')}
-                className="flex-1 text-center bg-brand-pink text-white py-3.5 rounded-full font-semibold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-0.5"
-              >
-                Reservar ahora
-              </a>
-            </div>
+            {/* CTA */}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('cabanas_section')}
+              className="inline-block text-center bg-brand-pink text-white py-3.5 px-8 rounded-full font-semibold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-0.5"
+            >
+              Reserva tu cabaña
+            </a>
           </div>
-        </div>
-
-        {/* Gallery strip */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {[
-            { src: ASSETS.CAFETALES, alt: 'Cafetales de La Palma & El Tucán' },
-            { src: ASSETS.BOSQUE, alt: 'Caminata por el bosque de niebla' },
-            { src: ASSETS.DEGUSTACION, alt: 'Degustación de cafés de especialidad' },
-          ].map((img) => (
-            <div key={img.src} className="rounded-2xl overflow-hidden shadow-md aspect-[4/3]">
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -298,333 +297,247 @@ function ExperiencesSection() {
     <section
       id="experiencias"
       ref={ref}
-      className={`py-20 bg-brand-light scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      className={`py-20 bg-brand-dark scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
       aria-labelledby="experiencias-titulo"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Todo incluido
+          <p className="text-brand-gold font-semibold tracking-widest uppercase text-sm mb-3">
+            Vive algo único
           </p>
           <h2
             id="experiencias-titulo"
-            className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
+            className="font-serif text-3xl sm:text-4xl font-bold text-white"
           >
-            No es solo hospedaje. Es toda una experiencia.
+            Más que una estadía, una experiencia
           </h2>
-          <p className="text-gray-500 text-lg">Tu estadía incluye:</p>
         </div>
+
+        <p className="text-white/70 text-base leading-relaxed max-w-3xl mx-auto text-center mb-12">
+          {COPY.EXPERIENCE_INTRO}
+        </p>
 
         {/* Experience cards grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {EXPERIENCES.map((exp, i) => (
             <article
               key={exp.title}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-brand-beige/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200 group"
+              className="bg-white/8 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/12 hover:-translate-y-1 transition-all duration-200 group"
               style={{ transitionDelay: `${i * 60}ms` }}
             >
-              <div className="text-4xl mb-4">{exp.icon}</div>
-              <h3 className="font-serif text-lg font-semibold text-brand-dark mb-2 group-hover:text-brand-pink transition-colors duration-200">
+              <div className="w-12 h-12 rounded-xl bg-brand-gold/15 flex items-center justify-center text-brand-gold mb-4 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors duration-200">
+                {EXPERIENCE_ICONS[exp.icon as string]}
+              </div>
+              <h3 className="font-serif text-lg font-semibold text-white mb-2">
                 {exp.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{exp.description}</p>
+              <p className="text-white/60 text-sm leading-relaxed">{exp.description}</p>
             </article>
           ))}
-        </div>
-
-        {/* Processing station image */}
-        <div className="mt-12 rounded-3xl overflow-hidden shadow-xl relative">
-          <img
-            src={ASSETS.EXTERIOR}
-            alt="Proceso de beneficio del café en La Palma & El Tucán"
-            className="w-full h-64 sm:h-80 object-cover"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/90 to-transparent flex items-center">
-            <div className="p-8 max-w-lg">
-              <p className="text-brand-gold font-semibold text-sm uppercase tracking-widest mb-3">
-                Hotel boutique en una finca de clase mundial
-              </p>
-              <p className="font-serif text-white text-xl font-bold leading-snug mb-3">
-                La Palma &amp; El Tucán no es un hotel tradicional.
-              </p>
-              <p className="text-white/80 text-sm leading-relaxed mb-2">
-                Es un proyecto de caficultura y humano que ha puesto el nombre de Colombia en las mejores tazas del mundo.
-              </p>
-              <p className="text-white/80 text-sm leading-relaxed italic">
-                Hospedarte aquí es vivir esa historia desde adentro.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
   );
 }
 
-// ─── Reviews Section ──────────────────────────────────────────────────────────
+// ─── Price Section ────────────────────────────────────────────────────────────
+function PriceSection() {
+  const { ref, isVisible } = useScrollReveal();
+  const { trackWhatsAppClick } = useAnalytics();
+
+  return (
+    <section
+      id="precios"
+      ref={ref}
+      className={`py-20 bg-brand-light scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      aria-labelledby="precios-titulo"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
+            Planes claros
+          </p>
+          <h2
+            id="precios-titulo"
+            className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
+          >
+            Planes y Precios
+          </h2>
+          <p className="text-gray-500 text-lg">Transparencia total. Sin sorpresas.</p>
+        </div>
+
+        <p className="text-gray-600 text-base leading-relaxed max-w-3xl mx-auto text-center mb-12">
+          {COPY.PRICE_INTRO}
+        </p>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {PRICE_CARDS.map((card) => {
+            const planText = encodeURIComponent(`Hola, quiero reservar el plan ${card.name}`);
+            const whatsappUrl = `https://wa.me/573189565617?text=${planText}`;
+
+            return (
+              <article
+                key={card.name}
+                className={`relative bg-white rounded-2xl p-6 shadow-sm border-2 transition-all duration-200 hover:shadow-md hover:-translate-y-1 flex flex-col ${
+                  card.highlighted
+                    ? 'border-brand-gold'
+                    : 'border-brand-beige/40'
+                }`}
+              >
+                {card.highlighted && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-gold text-brand-dark text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+                    Más popular
+                  </div>
+                )}
+
+                <h3 className="font-serif text-xl font-semibold text-brand-dark mb-2">
+                  {card.name}
+                </h3>
+                <p className="text-brand-pink font-bold text-lg mb-4">
+                  {card.price}
+                </p>
+
+                <ul className="space-y-3 mb-6 flex-1">
+                  {card.includes.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-brand-pink flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      <span className="text-gray-600 text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick(`price_${card.name}`)}
+                  className={`text-center py-3 rounded-full font-semibold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ${
+                    card.highlighted
+                      ? 'bg-brand-pink text-white hover:bg-brand-pink/90 hover:shadow-brand-pink/30'
+                      : 'bg-brand-dark text-white hover:bg-brand-dark/90'
+                  }`}
+                >
+                  Reservar este plan
+                </a>
+              </article>
+            );
+          })}
+        </div>
+
+        <p className="text-center text-gray-400 text-sm">
+          * Precios por cabaña/noche. Sujetos a disponibilidad y temporada.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─── Reviews Section (3 visible cards carousel) ─────────────────────────────
 function ReviewsSection() {
   const { ref, isVisible } = useScrollReveal();
+  const [page, setPage] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const REVIEWS = [
-    {
-      text: 'Una experiencia que no esperaba encontrar tan cerca de la ciudad. Las cabañas son acogedoras, el silencio es real y el Coffee Tour fue lo mejor del viaje. Volvimos al mes siguiente.',
-      author: 'Visitante desde Bogotá',
-      stars: 5,
-    },
-    {
-      text: 'Llegamos por nuestro aniversario y fue mucho mejor de lo que imaginamos. Desayuno delicioso, cabaña íntima, atardecer espectacular. El tipo de lugar al que uno quiere volver.',
-      author: 'Pareja de aniversario',
-      stars: 5,
-    },
-    {
-      text: 'Sabía que La Palma & El Tucán era conocida por el café, pero no imaginé que el hospedaje fuera tan especial. La combinación de naturaleza, arquitectura en madera y el café de especialidad lo hace único en Colombia.',
-      author: 'Viajero de Medellín',
-      stars: 5,
-    },
-    {
-      text: 'Ya es la tercera vez que venimos. El bosque de niebla, el silencio y el desayuno artesanal son razones suficientes para repetir. Un refugio real a 90 minutos de Bogotá.',
-      author: 'Huésped recurrente',
-      stars: 5,
-    },
-  ];
+  // 3 cards en desktop, 1 en mobile
+  const perPage = typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 3;
+  const totalPages = Math.ceil(REVIEWS.length / perPage);
+
+  const goTo = (p: number, pause = true) => {
+    if (pause) setIsPaused(true);
+    setPage(((p % totalPages) + totalPages) % totalPages);
+  };
+
+  useEffect(() => {
+    if (isPaused) return;
+    timerRef.current = setTimeout(() => goTo(page + 1, false), 5000);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [page, isPaused]);
+
+  const visible = REVIEWS.slice(page * perPage, page * perPage + perPage);
 
   return (
     <section
       ref={ref}
-      className={`py-20 bg-brand-dark scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      className={`py-20 bg-white scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
       aria-labelledby="resenas-titulo"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-brand-gold font-semibold tracking-widest uppercase text-sm mb-3">
-            Lo que dicen nuestros huéspedes
+          <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
+            Reseñas verificadas
           </p>
           <h2
             id="resenas-titulo"
-            className="font-serif text-3xl sm:text-4xl font-bold text-white"
-          >
-            Experiencias reales
-          </h2>
-          {/* Aggregate rating */}
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 text-brand-gold" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-            <span className="text-white font-bold text-lg">5.0</span>
-            <span className="text-white/50 text-sm">/ 5</span>
-          </div>
-        </div>
-
-        {/* Reviews grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {REVIEWS.map((review, i) => (
-            <article
-              key={i}
-              className="bg-white/8 backdrop-blur-sm border border-white/10 rounded-2xl p-6 flex flex-col gap-4 hover:bg-white/12 transition-colors duration-200"
-            >
-              {/* Stars */}
-              <div className="flex gap-0.5">
-                {[...Array(review.stars)].map((_, j) => (
-                  <svg key={j} className="w-4 h-4 text-brand-gold" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              {/* Quote */}
-              <p className="text-white/80 text-sm leading-relaxed flex-1 italic">
-                "{review.text}"
-              </p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Distance Section ─────────────────────────────────────────────────────────
-function DistanceSection() {
-  const { ref, isVisible } = useScrollReveal();
-  return (
-    <section
-      id="ubicacion"
-      ref={ref}
-      className={`py-20 bg-white scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
-      aria-labelledby="ubicacion-titulo"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Cerca y privado
-          </p>
-          <h2
-            id="ubicacion-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
           >
-            Cerca de Bogotá. Lejos del ruido.
+            Lo que dicen nuestras parejas
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Distance column */}
-          <div className="bg-brand-dark rounded-3xl p-8 text-white">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-5 h-5 text-brand-gold" aria-hidden="true" />
-              </div>
-              <h3 className="font-serif text-xl font-semibold">
-                ¿A qué distancia estamos?
-              </h3>
-            </div>
-            <ul className="space-y-5">
-              {DISTANCE_POINTS.map((point) => (
-                <li key={point.text} className="flex items-start gap-4">
-                  <span className="text-2xl flex-shrink-0 leading-tight">{point.icon}</span>
-                  <span className="text-white/85 leading-relaxed">{point.text}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* Map snippet hint */}
-            <div className="mt-8 bg-white/10 rounded-2xl p-4 border border-white/10">
-              <div className="flex items-center gap-2 mb-2">
-                <Clock className="w-4 h-4 text-brand-gold" aria-hidden="true" />
-                <span className="text-brand-gold text-sm font-semibold">Ruta sugerida</span>
-              </div>
-              <p className="text-white/70 text-sm leading-relaxed">
-                Bogotá → Facatativá → Zipacón. Sin vías difíciles ni 4x4.
-              </p>
-            </div>
-          </div>
-
-          {/* Privacy column */}
-          <div className="bg-brand-light rounded-3xl p-8 border border-brand-beige">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-brand-pink/15 flex items-center justify-center flex-shrink-0">
-                <Mountain className="w-5 h-5 text-brand-pink" aria-hidden="true" />
-              </div>
-              <h3 className="font-serif text-xl font-semibold text-brand-dark">
-                ¿Es privado?
-              </h3>
-            </div>
-            <ul className="space-y-4">
-              {PRIVACY_POINTS.map((point, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-pink/15 flex items-center justify-center mt-0.5">
-                    <svg
-                      className="w-3 h-3 text-brand-pink"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M2 6L4.5 8.5L10 3"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-gray-700 leading-relaxed">{point.text}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8 bg-white rounded-2xl p-4 shadow-sm border border-brand-beige/50">
-              <div className="flex items-center gap-2 mb-2">
-                <Wifi className="w-4 h-4 text-brand-green" aria-hidden="true" />
-                <span className="text-brand-green text-sm font-semibold">
-                  Confort garantizado
-                </span>
-              </div>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                Toda la comodidad de un hotel boutique, en medio de la naturaleza. Sin aglomeraciones, sin ruido.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Urgency Section ──────────────────────────────────────────────────────────
-function UrgencySection() {
-  const { ref, isVisible } = useScrollReveal();
-  const { trackAvailabilityClick, trackWhatsAppClick } = useAnalytics();
-  return (
-    <section
-      ref={ref}
-      className={`py-24 relative overflow-hidden scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
-      aria-labelledby="urgencia-titulo"
-    >
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={ASSETS.SUNSET}
-          alt=""
-          className="w-full h-full object-cover object-center scale-105"
-          loading="lazy"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85" />
-      </div>
-
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Flame icon */}
-        <div className="flex justify-center mb-6">
-          <span className="text-5xl">🔥</span>
-        </div>
-
-        <h2
-          id="urgencia-titulo"
-          className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
-        >
-          Los fines de semana{' '}
-          <span className="text-brand-pink italic">suelen llenarse con anticipación</span>
-        </h2>
-
-        <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-          Si estás planeando una pausa en pareja, te recomendamos revisar disponibilidad con tiempo.
-          Reserva directamente con nosotros y vive la experiencia completa.
-        </p>
-
-        {/* Availability indicator */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-brand-pink/15 border border-brand-pink/30 text-brand-pink px-5 py-2.5 rounded-full text-sm font-medium">
-            <span className="w-2 h-2 rounded-full bg-brand-pink animate-pulse" />
-            Disponibilidad limitada este fin de semana
-          </div>
-        </div>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href={CLOUDBEDS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackAvailabilityClick('urgency_section')}
-            className="w-full sm:w-auto bg-brand-pink text-white px-10 py-[18px] rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1"
+        {/* Carousel with arrows */}
+        <div className="relative flex items-center gap-4">
+          {/* Left arrow */}
+          <button
+            onClick={() => goTo(page - 1)}
+            aria-label="Reseñas anteriores"
+            className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-brand-beige bg-white shadow-sm flex items-center justify-center text-brand-dark hover:border-brand-pink hover:text-brand-pink transition-all duration-200"
           >
-            Ver disponibilidad ahora
-          </a>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackWhatsAppClick('urgency_section')}
-            className="w-full sm:w-auto border-2 border-white/40 text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-white/10 transition-all duration-200 hover:-translate-y-1"
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          {/* 3 Cards grid */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-6" aria-live="polite">
+            {visible.map((review, i) => (
+              <article
+                key={`${page}-${i}`}
+                className="bg-brand-light border border-brand-beige/50 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300"
+              >
+                {/* Stars */}
+                <div className="flex gap-0.5">
+                  {[...Array(review.rating)].map((_, j) => (
+                    <Star key={j} className="w-4 h-4 text-brand-gold fill-brand-gold" aria-hidden="true" />
+                  ))}
+                </div>
+                {/* Quote */}
+                <p className="text-brand-dark text-sm leading-relaxed flex-1 italic">
+                  &ldquo;{review.text}&rdquo;
+                </p>
+                {/* Author */}
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <span>{review.author}</span>
+                  <span className="font-medium text-brand-pink">{review.source}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Right arrow */}
+          <button
+            onClick={() => goTo(page + 1)}
+            aria-label="Siguientes reseñas"
+            className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-brand-beige bg-white shadow-sm flex items-center justify-center text-brand-dark hover:border-brand-pink hover:text-brand-pink transition-all duration-200"
           >
-            Más información
-          </a>
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Página ${i + 1}`}
+              onClick={() => goTo(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === page
+                  ? 'w-6 h-2.5 bg-brand-pink'
+                  : 'w-2.5 h-2.5 bg-brand-beige hover:bg-brand-pink/40'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -656,7 +569,7 @@ function FaqSection() {
             id="faq-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
           >
-            Preguntas frecuentes
+            Preguntas Frecuentes
           </h2>
         </div>
 
@@ -688,7 +601,7 @@ function FaqSection() {
                   role="region"
                   aria-labelledby={`faq-btn-${index}`}
                   className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? 'max-h-48' : 'max-h-0'
+                    isOpen ? 'max-h-96' : 'max-h-0'
                   }`}
                 >
                   <p className="px-6 pb-6 text-gray-600 text-sm leading-relaxed border-t border-brand-beige/40 pt-4">
@@ -704,16 +617,110 @@ function FaqSection() {
   );
 }
 
+// ─── Location Section ─────────────────────────────────────────────────────────
+function LocationSection() {
+  const { ref, isVisible } = useScrollReveal();
+  const { trackWhatsAppClick } = useAnalytics();
+
+  const STEPS = [
+    { number: '1', text: 'Tomar vía Facatativá' },
+    { number: '2', text: 'Seguir hacia Anolaima' },
+    { number: '3', text: '10 min por vía destapada' },
+    { number: '4', text: 'Llegaste (90 min total)' },
+  ];
+
+  return (
+    <section
+      id="ubicacion"
+      ref={ref}
+      className={`py-20 bg-white scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+      aria-labelledby="ubicacion-titulo"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
+            Fácil de llegar
+          </p>
+          <h2
+            id="ubicacion-titulo"
+            className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
+          >
+            ¿Cómo llegar?
+          </h2>
+        </div>
+
+        <p className="text-gray-600 text-base leading-relaxed max-w-3xl mx-auto text-center mb-12">
+          {COPY.LOCATION_DESCRIPTION}
+        </p>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Info */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-brand-pink/15 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-5 h-5 text-brand-pink" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="font-semibold text-brand-dark">Zipacón, Cundinamarca, Colombia</p>
+                <p className="text-gray-400 text-sm">4.7547° N, 74.3878° W</p>
+              </div>
+            </div>
+
+            <h3 className="font-serif text-xl font-semibold text-brand-dark mb-4">
+              Desde Bogotá:
+            </h3>
+
+            <div className="space-y-4 mb-8">
+              {STEPS.map((step) => (
+                <div key={step.number} className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-brand-pink flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    {step.number}
+                  </div>
+                  <div className="flex items-center gap-2 pt-1">
+                    <Car className="w-4 h-4 text-gray-400" aria-hidden="true" />
+                    <span className="text-gray-700">{step.text}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('location_section')}
+              className="inline-flex items-center gap-2 text-brand-pink font-semibold hover:text-brand-pink/80 transition-colors duration-200"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              ¿Necesitas ayuda con la ruta? Escríbenos
+            </a>
+          </div>
+
+          {/* Map */}
+          <div className="rounded-2xl overflow-hidden shadow-lg h-[400px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15907.5!2d-74.3878!3d4.7547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f7c5c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2sLa%20Palma%20y%20el%20Tuc%C3%A1n!5e0!3m2!1ses!2sco!4v1709000000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación La Palma y el Tucán"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── CTA Final ────────────────────────────────────────────────────────────────
 function CtaFinal() {
   const { ref, isVisible } = useScrollReveal();
-  const { trackAvailabilityClick, trackWhatsAppClick } = useAnalytics();
-
-  const STEPS = [
-    { number: '1', label: 'Elige tu fecha' },
-    { number: '2', label: 'Confirma disponibilidad' },
-    { number: '3', label: 'Prepárate para desconectarte' },
-  ];
+  const { trackWhatsAppClick, trackEmailClick } = useAnalytics();
 
   return (
     <section
@@ -726,75 +733,50 @@ function CtaFinal() {
       <div className="absolute inset-0 z-0">
         <img
           src={ASSETS.CAFETALES}
-          alt="Cafetales de La Palma & El Tucán al atardecer"
+          alt=""
           className="w-full h-full object-cover"
           loading="lazy"
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-brand-dark/80" />
+        <div className="absolute inset-0 bg-brand-dark/85" />
       </div>
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-brand-pink/20 border border-brand-pink/40 text-brand-pink px-4 py-2 rounded-full text-sm font-medium tracking-wide mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-pink animate-pulse" />
-          Disponibilidad limitada
-        </div>
-
         <h2
           id="cta-titulo"
           className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4"
         >
-          Reserva en 2 minutos
+          El tiempo juntos no se pospone
         </h2>
 
-        <p className="text-white/70 text-base mb-12">
-          Así de sencillo es empezar tu escapada perfecta.
+        <p className="text-white/60 text-base leading-relaxed max-w-2xl mx-auto mb-6">
+          {COPY.CTA_EMOTIONAL}
         </p>
 
-        {/* Steps */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-14">
-          {STEPS.map((step, i) => (
-            <div key={step.number} className="flex items-center gap-4">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-brand-pink flex items-center justify-center text-white font-bold text-lg mb-2 shadow-lg shadow-brand-pink/40">
-                  {step.number}
-                </div>
-                <span className="text-white/85 text-sm font-medium text-center max-w-[100px]">
-                  {step.label}
-                </span>
-              </div>
-              {i < STEPS.length - 1 && (
-                <div className="hidden sm:block w-12 h-0.5 bg-white/20 mt-[-20px]" />
-              )}
-            </div>
-          ))}
-        </div>
+        <p className="text-white/70 text-base sm:text-lg mb-10 max-w-xl mx-auto">
+          Reserva en menos de 2 minutos por WhatsApp
+        </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-          <a
-            href={CLOUDBEDS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackAvailabilityClick('cta_final')}
-            className="w-full sm:w-auto bg-brand-pink text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1"
-          >
-            Ver disponibilidad
-          </a>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackWhatsAppClick('cta_final')}
-            className="w-full sm:w-auto flex items-center justify-center bg-brand-pink text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1"
-          >
-            Escribir por correo
-          </a>
-        </div>
+        {/* CTA */}
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick('cta_final')}
+          className="inline-block bg-brand-pink text-white px-12 py-5 rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1 mb-6"
+        >
+          Reservar ahora por WhatsApp
+        </a>
 
-        {/* Trust note */}
         <p className="text-white/50 text-sm">
-          Respuesta inmediata · Hablamos español · Confirmación al instante
+          O escríbenos a{' '}
+          <a
+            href={`mailto:${EMAIL}`}
+            onClick={() => trackEmailClick('cta_final')}
+            className="text-white/70 hover:text-white underline transition-colors duration-200"
+          >
+            {EMAIL}
+          </a>
         </p>
       </div>
     </section>
@@ -815,7 +797,7 @@ function Footer() {
             <Logo variant="light" size="lg" />
             <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-xs">
               Finca cafetera boutique a 90 minutos de Bogotá. Cabañas privadas con tina,
-              desayuno y Coffee Tour incluido.
+              desayuno farm-to-table y Coffee Tour incluido.
             </p>
           </div>
 
@@ -867,13 +849,15 @@ function Footer() {
                 <a
                   href={`mailto:${EMAIL}`}
                   onClick={() => trackEmailClick('footer')}
-                  className="text-white/50 hover:text-brand-pink text-sm transition-colors duration-200 break-all"
+                  className="flex items-center gap-2 text-white/50 hover:text-brand-pink text-sm transition-colors duration-200 break-all"
                 >
+                  <Mail className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                   {EMAIL}
                 </a>
               </li>
               <li>
-                <span className="text-white/50 text-sm">
+                <span className="flex items-center gap-2 text-white/50 text-sm">
+                  <MapPin className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                   Zipacón, Cundinamarca, Colombia
                 </span>
               </li>
@@ -887,7 +871,7 @@ function Footer() {
             &copy; {currentYear} La Palma &amp; El Tucán. Todos los derechos reservados.
           </p>
           <p className="text-white/20 text-xs">
-            Cabañas románticas cerca a Bogotá · Finca cafetera Zipacón
+            Escapada romántica cerca a Bogotá · Finca cafetera Zipacón
           </p>
         </div>
       </div>
@@ -905,13 +889,14 @@ export default function App() {
       <main>
         <Hero />
         <StatsBar />
-        <SearchSection />
+        <WhySection />
+        <OurStorySection />
         <CabinSection />
         <ExperiencesSection />
+        <PriceSection />
         <ReviewsSection />
-        <DistanceSection />
-        <UrgencySection />
         <FaqSection />
+        <LocationSection />
         <CtaFinal />
       </main>
       <Footer />
