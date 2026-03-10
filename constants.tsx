@@ -48,24 +48,24 @@ export const NAV_LINKS: NavLink[] = [
 // ─── Stats Bar ────────────────────────────────────────────────────────────────
 export const STATS: Stat[] = [
   {
+    value: '9.5/10',
+    label: 'Booking',
+    sublabel: 'Calificación de huéspedes',
+  },
+  {
+    value: '5.0/5',
+    label: 'TripAdvisor',
+    sublabel: '#1 en Zipacón',
+  },
+  {
     value: '90 min',
     label: 'Desde Bogotá',
     sublabel: 'Acceso fácil en carro',
   },
   {
-    value: '100%',
-    label: 'Privado',
-    sublabel: 'Hotel boutique con pocas cabañas',
-  },
-  {
-    value: 'Todas',
-    label: 'Con tina privada',
-    sublabel: 'Baño en madera natural',
-  },
-  {
-    value: '☕',
-    label: 'Desayuno incluido',
-    sublabel: 'Artesanal cada mañana',
+    value: '10',
+    label: 'Cabañas privadas',
+    sublabel: 'Independientes con tina',
   },
 ];
 
