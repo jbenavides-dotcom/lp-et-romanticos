@@ -43,23 +43,3 @@ export interface DistancePoint {
 export interface PrivacyPoint {
   text: string;
 }
-
-export interface FAQ {
-  question: string;
-  answer: string;
-}
-
-export interface PriceCard {
-  name: string;
-  price: string;
-  description: string;
-  includes: string[];
-  highlighted?: boolean;
-}
-
-export interface Review {
-  text: string;
-  author: string;
-  rating: number;
-  source: string;
-}
