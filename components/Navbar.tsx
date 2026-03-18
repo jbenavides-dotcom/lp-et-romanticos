@@ -1,13 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import LangToggle from './LangToggle';
 import { NAV_LINKS, CLOUDBEDS_URL } from '../constants';
 import { useAnalytics } from '../hooks/useAnalytics';
+import { useI18n } from '../i18n';
+
+const NAV_KEYS: Record<string, string> = {
+  '#cabanas': 'nav.cabanas',
+  '#experiencias': 'nav.experiencias',
+  '#faq': 'nav.faq',
+  '#reservar': 'nav.reservar',
+};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { trackAvailabilityClick } = useAnalytics();
+  const { t } = useI18n();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -68,9 +78,10 @@ export default function Navbar() {
               }}
               className="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors duration-200"
             >
-              {link.label}
+              {t(NAV_KEYS[link.href] || link.href)}
             </a>
           ))}
+          <LangToggle />
           <a
             href={CLOUDBEDS_URL}
             target="_blank"
@@ -78,7 +89,7 @@ export default function Navbar() {
             onClick={() => trackAvailabilityClick('navbar')}
             className="bg-brand-pink text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-0.5"
           >
-            Ver disponibilidad
+            {t('nav.cta')}
           </a>
         </nav>
 
@@ -86,7 +97,7 @@ export default function Navbar() {
         <button
           className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
           onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={menuOpen ? t('nav.aria.close') : t('nav.aria.open')}
           aria-expanded={menuOpen}
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -118,9 +129,10 @@ export default function Navbar() {
               }}
               className="text-white text-2xl font-medium font-serif hover:text-brand-gold transition-colors duration-200"
             >
-              {link.label}
+              {t(NAV_KEYS[link.href] || link.href)}
             </a>
           ))}
+          <LangToggle />
           <a
             href={CLOUDBEDS_URL}
             target="_blank"
@@ -131,7 +143,7 @@ export default function Navbar() {
             }}
             className="bg-brand-pink text-white px-8 py-3.5 rounded-full text-lg font-semibold hover:bg-brand-pink/90 transition-all duration-200 mt-4"
           >
-            Ver disponibilidad
+            {t('nav.cta')}
           </a>
         </nav>
       </div>

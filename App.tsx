@@ -7,16 +7,11 @@ import Logo from './components/Logo';
 
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useAnalytics } from './hooks/useAnalytics';
+import { useI18n } from './i18n';
 
 import {
   ASSETS,
   STATS,
-  CABIN_FEATURES,
-  PERFECT_FOR,
-  EXPERIENCES,
-  DISTANCE_POINTS,
-  PRIVACY_POINTS,
-  FAQ_ITEMS,
   CLOUDBEDS_URL,
   WHATSAPP_URL,
   EMAIL,
@@ -26,6 +21,7 @@ import {
 // ─── WhatsApp floating button ─────────────────────────────────────────────────
 function FloatingCTA() {
   const { trackWhatsAppClick } = useAnalytics();
+  const { t } = useI18n();
   return (
     <a
       href={WHATSAPP_URL}
@@ -33,7 +29,7 @@ function FloatingCTA() {
       rel="noopener noreferrer"
       onClick={() => trackWhatsAppClick('floating_button')}
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-brand-pink text-white shadow-lg hover:bg-brand-pink/90 hover:shadow-xl hover:shadow-brand-pink/40 hover:-translate-y-1 transition-all duration-300"
-      aria-label="Contáctanos"
+      aria-label={t('floating.aria')}
     >
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -44,11 +40,20 @@ function FloatingCTA() {
 
 // ─── Stats Bar ────────────────────────────────────────────────────────────────
 function StatsBar() {
+  const { t } = useI18n();
+
+  const STATS_I18N = [
+    { value: STATS[0].value, label: t('stats.booking.label'), sublabel: t('stats.booking.sublabel') },
+    { value: STATS[1].value, label: t('stats.tripadvisor.label'), sublabel: t('stats.tripadvisor.sublabel') },
+    { value: STATS[2].value, label: t('stats.distance.label'), sublabel: t('stats.distance.sublabel') },
+    { value: STATS[3].value, label: t('stats.breakfast.label'), sublabel: t('stats.breakfast.sublabel') },
+  ];
+
   return (
-    <section className="bg-brand-dark py-10" aria-label="Estadísticas clave">
+    <section className="bg-brand-dark py-10" aria-label={t('stats.aria')}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {STATS.map((stat) => (
+          {STATS_I18N.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="font-serif text-3xl sm:text-4xl font-bold text-brand-gold mb-1">
                 {stat.value}
@@ -68,19 +73,20 @@ function StatsBar() {
 // ─── Search Section ───────────────────────────────────────────────────────────
 function SearchSection() {
   const { ref, isVisible } = useScrollReveal();
+  const { t } = useI18n();
 
   const POETIC_ITEMS = [
-    'Despertar con el sonido de los pájaros.',
-    'Disfrutar de un atardecer colorido.',
-    'Caminar entre montañas a 1.800 metros de altura.',
-    'Dormir profundamente en medio del silencio.',
+    t('search.poetic.1'),
+    t('search.poetic.2'),
+    t('search.poetic.3'),
+    t('search.poetic.4'),
   ];
 
   const PHOTO_GRID = [
-    { src: ASSETS.BOSQUE,    alt: 'Bosque de niebla' },
-    { src: ASSETS.SUNSET,    alt: 'Atardecer desde la cabaña' },
-    { src: ASSETS.EXTERIOR,  alt: 'Exterior de la cabaña' },
-    { src: ASSETS.CABANA,    alt: 'Interior de la cabaña' },
+    { src: ASSETS.BOSQUE,    alt: t('search.photo.bosque') },
+    { src: ASSETS.SUNSET,    alt: t('search.photo.sunset') },
+    { src: ASSETS.EXTERIOR,  alt: t('search.photo.exterior') },
+    { src: ASSETS.CABANA,    alt: t('search.photo.cabana') },
   ];
 
   return (
@@ -96,17 +102,16 @@ function SearchSection() {
           {/* Left column — text */}
           <div>
             <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-              Un refugio para desconectarse juntos
+              {t('search.badge')}
             </p>
             <h2
               id="busqueda-titulo"
               className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-5"
             >
-              Si estás buscando esto, estás en el lugar correcto.
+              {t('search.h2')}
             </h2>
             <p className="text-gray-600 text-base leading-relaxed mb-7">
-              Nuestras cabañas privadas, rodeadas de cafetales y bosque de niebla, están
-              diseñadas para ofrecer intimidad, calma y comodidad en su forma más auténtica.
+              {t('search.body')}
             </p>
             <ul className="space-y-3 mb-7">
               {POETIC_ITEMS.map((item) => (
@@ -120,7 +125,7 @@ function SearchSection() {
               ))}
             </ul>
             <p className="font-serif text-brand-dark text-lg italic">
-              Eso es lo que define una escapada aquí.
+              {t('search.closing')}
             </p>
           </div>
 
@@ -151,6 +156,25 @@ function SearchSection() {
 function CabinSection() {
   const { ref, isVisible } = useScrollReveal();
   const { trackAvailabilityClick, trackWhatsAppClick } = useAnalytics();
+  const { t } = useI18n();
+
+  const CABIN_FEATURES_I18N = [
+    t('cabin.feat.1'),
+    t('cabin.feat.2'),
+    t('cabin.feat.3'),
+    t('cabin.feat.4'),
+    t('cabin.feat.5'),
+    t('cabin.feat.6'),
+  ];
+
+  const PERFECT_FOR_I18N = [
+    { emoji: '💑', label: t('cabin.perfectfor.1') },
+    { emoji: '🎂', label: t('cabin.perfectfor.2') },
+    { emoji: '🌿', label: t('cabin.perfectfor.3') },
+    { emoji: '✨', label: t('cabin.perfectfor.4') },
+  ];
+
+  const taglineLines = t('cabin.tagline').split('\n');
 
   return (
     <section
@@ -163,16 +187,18 @@ function CabinSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Sobre nuestras cabañas
+            {t('cabin.badge')}
           </p>
           <h2
             id="cabanas-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
           >
-            Cada cabaña es independiente y está construida en madera natural, en armonía con el entorno
+            {t('cabin.h2')}
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto mb-4">Cuentan con baño privado, terraza y una atmósfera cálida y serena que invita al descanso profundo.</p>
-          <p className="font-serif text-brand-dark text-xl font-medium italic">El lujo aquí no es exceso.<br />Es espacio, silencio y naturaleza.</p>
+          <p className="text-gray-500 text-lg max-w-xl mx-auto mb-4">{t('cabin.body')}</p>
+          <p className="font-serif text-brand-dark text-xl font-medium italic">
+            {taglineLines[0]}<br />{taglineLines[1]}
+          </p>
         </div>
 
         {/* Main cabin content */}
@@ -196,7 +222,7 @@ function CabinSection() {
                 </video>
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-lg">
-                <img src={ASSETS.CABANA} alt="Interior cabaña romántica" className="w-full h-[180px] object-cover" loading="lazy" />
+                <img src={ASSETS.CABANA} alt={t('cabin.img.tina')} className="w-full h-[180px] object-cover" loading="lazy" />
               </div>
             </div>
           </div>
@@ -204,11 +230,11 @@ function CabinSection() {
           {/* Features */}
           <div>
             <h3 className="font-serif text-2xl font-semibold text-brand-dark mb-6">
-              Lo que incluye tu estadía:
+              {t('cabin.features.title')}
             </h3>
             <ul className="space-y-4 mb-8">
-              {CABIN_FEATURES.map((feature) => (
-                <li key={feature.text} className="flex items-start gap-3">
+              {CABIN_FEATURES_I18N.map((feat) => (
+                <li key={feat} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-pink/15 flex items-center justify-center mt-0.5">
                     <svg
                       className="w-3 h-3 text-brand-pink"
@@ -225,7 +251,7 @@ function CabinSection() {
                       />
                     </svg>
                   </span>
-                  <span className="text-gray-700">{feature.text}</span>
+                  <span className="text-gray-700">{feat}</span>
                 </li>
               ))}
             </ul>
@@ -233,10 +259,10 @@ function CabinSection() {
             {/* Perfect for */}
             <div className="bg-brand-light rounded-2xl p-5 mb-8">
               <p className="text-brand-dark font-semibold mb-3 text-sm uppercase tracking-wide">
-                Ideal para:
+                {t('cabin.perfectfor.title')}
               </p>
               <div className="grid grid-cols-2 gap-3">
-                {PERFECT_FOR.map((item) => (
+                {PERFECT_FOR_I18N.map((item) => (
                   <div key={item.label} className="flex items-center gap-2">
                     <span className="text-xl">{item.emoji}</span>
                     <span className="text-gray-700 text-sm">{item.label}</span>
@@ -254,7 +280,7 @@ function CabinSection() {
                 onClick={() => trackAvailabilityClick('cabanas_section')}
                 className="flex-1 text-center bg-brand-pink text-white py-3.5 rounded-full font-semibold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-0.5"
               >
-                Ver disponibilidad
+                {t('cabin.cta.availability')}
               </a>
               <a
                 href={WHATSAPP_URL}
@@ -263,7 +289,7 @@ function CabinSection() {
                 onClick={() => trackWhatsAppClick('cabanas_section')}
                 className="flex-1 text-center bg-brand-pink text-white py-3.5 rounded-full font-semibold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-0.5"
               >
-                Reservar ahora
+                {t('cabin.cta.book')}
               </a>
             </div>
           </div>
@@ -272,9 +298,9 @@ function CabinSection() {
         {/* Gallery strip */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {[
-            { src: ASSETS.CAFETALES, alt: 'Cafetales de La Palma & El Tucán' },
-            { src: ASSETS.BOSQUE, alt: 'Caminata por el bosque de niebla' },
-            { src: ASSETS.DEGUSTACION, alt: 'Degustación de cafés de especialidad' },
+            { src: ASSETS.CAFETALES, alt: t('cabin.img.cafetales') },
+            { src: ASSETS.BOSQUE, alt: t('cabin.img.bosque') },
+            { src: ASSETS.DEGUSTACION, alt: t('cabin.img.degustacion') },
           ].map((img) => (
             <div key={img.src} className="rounded-2xl overflow-hidden shadow-md aspect-[4/3]">
               <img
@@ -294,6 +320,17 @@ function CabinSection() {
 // ─── Experiences Section ──────────────────────────────────────────────────────
 function ExperiencesSection() {
   const { ref, isVisible } = useScrollReveal();
+  const { t } = useI18n();
+
+  const EXPERIENCES_I18N = [
+    { icon: '🍳', title: t('exp.title.1'), description: t('exp.desc.1') },
+    { icon: '☕', title: t('exp.title.2'), description: t('exp.desc.2') },
+    { icon: '☕', title: t('exp.title.3'), description: t('exp.desc.3') },
+    { icon: '🌿', title: t('exp.title.4'), description: t('exp.desc.4') },
+    { icon: '🚵', title: t('exp.title.5'), description: t('exp.desc.5') },
+    { icon: '🤫', title: t('exp.title.6'), description: t('exp.desc.6') },
+  ];
+
   return (
     <section
       id="experiencias"
@@ -305,20 +342,20 @@ function ExperiencesSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Todo incluido
+            {t('exp.badge')}
           </p>
           <h2
             id="experiencias-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
           >
-            No es solo hospedaje. Es toda una experiencia.
+            {t('exp.h2')}
           </h2>
-          <p className="text-gray-500 text-lg">Tu estadía incluye:</p>
+          <p className="text-gray-500 text-lg">{t('exp.subtitle')}</p>
         </div>
 
         {/* Experience cards grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {EXPERIENCES.map((exp, i) => (
+          {EXPERIENCES_I18N.map((exp, i) => (
             <article
               key={exp.title}
               className="bg-white rounded-2xl p-6 shadow-sm border border-brand-beige/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200 group"
@@ -337,23 +374,23 @@ function ExperiencesSection() {
         <div className="mt-12 rounded-3xl overflow-hidden shadow-xl relative">
           <img
             src={ASSETS.EXTERIOR}
-            alt="Proceso de beneficio del café en La Palma & El Tucán"
+            alt={t('exp.img.exterior')}
             className="w-full h-64 sm:h-80 object-cover"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/90 to-transparent flex items-center">
             <div className="p-8 max-w-lg">
               <p className="text-brand-gold font-semibold text-sm uppercase tracking-widest mb-3">
-                Hotel boutique en una finca de clase mundial
+                {t('exp.overlay.badge')}
               </p>
               <p className="font-serif text-white text-xl font-bold leading-snug mb-3">
-                La Palma &amp; El Tucán no es un hotel tradicional.
+                {t('exp.overlay.h3')}
               </p>
               <p className="text-white/80 text-sm leading-relaxed mb-2">
-                Es un proyecto de caficultura y humano que ha puesto el nombre de Colombia en las mejores tazas del mundo.
+                {t('exp.overlay.body1')}
               </p>
               <p className="text-white/80 text-sm leading-relaxed italic">
-                Hospedarte aquí es vivir esa historia desde adentro.
+                {t('exp.overlay.body2')}
               </p>
             </div>
           </div>
@@ -369,44 +406,15 @@ function ReviewsSection() {
   const [page, setPage] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { t } = useI18n();
 
   const REVIEWS = [
-    {
-      text: 'Una experiencia que no esperaba encontrar tan cerca de la ciudad. Las cabañas son acogedoras, el silencio es real y el Coffee Tour fue lo mejor del viaje. Volvimos al mes siguiente.',
-      author: 'Visitante desde Bogotá',
-      stars: 5,
-      source: 'Booking',
-    },
-    {
-      text: 'Llegamos por nuestro aniversario y fue mucho mejor de lo que imaginamos. Desayuno delicioso, cabaña íntima, atardecer espectacular. El tipo de lugar al que uno quiere volver.',
-      author: 'Pareja de aniversario',
-      stars: 5,
-      source: 'TripAdvisor',
-    },
-    {
-      text: 'Sabía que La Palma & El Tucán era conocida por el café, pero no imaginé que el hospedaje fuera tan especial. La combinación de naturaleza, arquitectura en madera y el café de especialidad lo hace único en Colombia.',
-      author: 'Viajero de Medellín',
-      stars: 5,
-      source: 'Booking',
-    },
-    {
-      text: 'Ya es la tercera vez que venimos. El bosque de niebla, el silencio y el desayuno artesanal son razones suficientes para repetir. Un refugio real a 90 minutos de Bogotá.',
-      author: 'Huésped recurrente',
-      stars: 5,
-      source: 'Booking',
-    },
-    {
-      text: 'Un paraíso a solo 1.5 horas de Bogotá. Las cabañas son increíbles, la tina con vista al valle es un sueño. El desayuno con productos de la finca fue lo mejor.',
-      author: 'Pareja · Bogotá',
-      stars: 5,
-      source: 'Booking',
-    },
-    {
-      text: 'Nos encantó absolutamente todo. Acogedor, relajante, emocionante y hermoso al mismo tiempo. El coffee tour fue la cereza del pastel.',
-      author: 'Pareja · Cali',
-      stars: 5,
-      source: 'TripAdvisor',
-    },
+    { textKey: 'reviews.text.1', authorKey: 'reviews.author.1', stars: 5, source: 'Booking' },
+    { textKey: 'reviews.text.2', authorKey: 'reviews.author.2', stars: 5, source: 'TripAdvisor' },
+    { textKey: 'reviews.text.3', authorKey: 'reviews.author.3', stars: 5, source: 'Booking' },
+    { textKey: 'reviews.text.4', authorKey: 'reviews.author.4', stars: 5, source: 'Booking' },
+    { textKey: 'reviews.text.5', authorKey: 'reviews.author.5', stars: 5, source: 'Booking' },
+    { textKey: 'reviews.text.6', authorKey: 'reviews.author.6', stars: 5, source: 'TripAdvisor' },
   ];
 
   const perPage = typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 3;
@@ -435,13 +443,13 @@ function ReviewsSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-brand-gold font-semibold tracking-widest uppercase text-sm mb-3">
-            Lo que dicen nuestros huéspedes
+            {t('reviews.badge')}
           </p>
           <h2
             id="resenas-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-white"
           >
-            Experiencias reales
+            {t('reviews.h2')}
           </h2>
           {/* Aggregate rating */}
           <div className="flex items-center justify-center gap-2 mt-4">
@@ -461,7 +469,7 @@ function ReviewsSection() {
         <div className="relative flex items-center gap-4">
           <button
             onClick={() => goTo(page - 1)}
-            aria-label="Reseñas anteriores"
+            aria-label={t('reviews.prev')}
             className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 bg-white/5 shadow-sm flex items-center justify-center text-white/60 hover:border-brand-gold hover:text-brand-gold transition-all duration-200"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -481,10 +489,10 @@ function ReviewsSection() {
                   ))}
                 </div>
                 <p className="text-white/80 text-sm leading-relaxed flex-1 italic">
-                  &ldquo;{review.text}&rdquo;
+                  &ldquo;{t(review.textKey)}&rdquo;
                 </p>
                 <div className="flex items-center justify-between text-xs text-white/50">
-                  <span>{review.author}</span>
+                  <span>{t(review.authorKey)}</span>
                   <span className="font-medium text-brand-gold">{review.source}</span>
                 </div>
               </article>
@@ -493,7 +501,7 @@ function ReviewsSection() {
 
           <button
             onClick={() => goTo(page + 1)}
-            aria-label="Siguientes reseñas"
+            aria-label={t('reviews.next')}
             className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 bg-white/5 shadow-sm flex items-center justify-center text-white/60 hover:border-brand-gold hover:text-brand-gold transition-all duration-200"
           >
             <ChevronRight className="w-5 h-5" />
@@ -505,7 +513,7 @@ function ReviewsSection() {
           {Array.from({ length: totalPages }).map((_, i) => (
             <button
               key={i}
-              aria-label={`Página ${i + 1}`}
+              aria-label={`${t('reviews.page')} ${i + 1}`}
               onClick={() => goTo(i)}
               className={`rounded-full transition-all duration-300 ${
                 i === page
@@ -523,6 +531,22 @@ function ReviewsSection() {
 // ─── Distance Section ─────────────────────────────────────────────────────────
 function DistanceSection() {
   const { ref, isVisible } = useScrollReveal();
+  const { t } = useI18n();
+
+  const DISTANCE_POINTS_I18N = [
+    { icon: '🚗', text: t('distance.pt.1') },
+    { icon: '🛣️', text: t('distance.pt.2') },
+    { icon: '🌤️', text: t('distance.pt.3') },
+    { icon: '🌿', text: t('distance.pt.4') },
+  ];
+
+  const PRIVACY_POINTS_I18N = [
+    { text: t('privacy.pt.1') },
+    { text: t('privacy.pt.2') },
+    { text: t('privacy.pt.3') },
+    { text: t('privacy.pt.4') },
+  ];
+
   return (
     <section
       id="ubicacion"
@@ -533,13 +557,13 @@ function DistanceSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Cerca y privado
+            {t('distance.badge')}
           </p>
           <h2
             id="ubicacion-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
           >
-            Cerca de Bogotá. Lejos del ruido.
+            {t('distance.h2')}
           </h2>
         </div>
 
@@ -551,11 +575,11 @@ function DistanceSection() {
                 <MapPin className="w-5 h-5 text-brand-gold" aria-hidden="true" />
               </div>
               <h3 className="font-serif text-xl font-semibold">
-                ¿A qué distancia estamos?
+                {t('distance.col1.h3')}
               </h3>
             </div>
             <ul className="space-y-5">
-              {DISTANCE_POINTS.map((point) => (
+              {DISTANCE_POINTS_I18N.map((point) => (
                 <li key={point.text} className="flex items-start gap-4">
                   <span className="text-2xl flex-shrink-0 leading-tight">{point.icon}</span>
                   <span className="text-white/85 leading-relaxed">{point.text}</span>
@@ -567,10 +591,10 @@ function DistanceSection() {
             <div className="mt-8 bg-white/10 rounded-2xl p-4 border border-white/10">
               <div className="flex items-center gap-2 mb-2">
                 <Clock className="w-4 h-4 text-brand-gold" aria-hidden="true" />
-                <span className="text-brand-gold text-sm font-semibold">Ruta sugerida</span>
+                <span className="text-brand-gold text-sm font-semibold">{t('distance.route.label')}</span>
               </div>
               <p className="text-white/70 text-sm leading-relaxed">
-                Bogotá → Facatativá → Zipacón. Sin vías difíciles ni 4x4.
+                {t('distance.route.text')}
               </p>
             </div>
           </div>
@@ -582,11 +606,11 @@ function DistanceSection() {
                 <Mountain className="w-5 h-5 text-brand-pink" aria-hidden="true" />
               </div>
               <h3 className="font-serif text-xl font-semibold text-brand-dark">
-                ¿Es privado?
+                {t('distance.col2.h3')}
               </h3>
             </div>
             <ul className="space-y-4">
-              {PRIVACY_POINTS.map((point, i) => (
+              {PRIVACY_POINTS_I18N.map((point, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-pink/15 flex items-center justify-center mt-0.5">
                     <svg
@@ -613,11 +637,11 @@ function DistanceSection() {
               <div className="flex items-center gap-2 mb-2">
                 <Wifi className="w-4 h-4 text-brand-green" aria-hidden="true" />
                 <span className="text-brand-green text-sm font-semibold">
-                  Confort garantizado
+                  {t('distance.comfort.label')}
                 </span>
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Toda la comodidad de un hotel boutique, en medio de la naturaleza. Sin aglomeraciones, sin ruido.
+                {t('distance.comfort.text')}
               </p>
             </div>
           </div>
@@ -631,6 +655,8 @@ function DistanceSection() {
 function UrgencySection() {
   const { ref, isVisible } = useScrollReveal();
   const { trackAvailabilityClick, trackWhatsAppClick } = useAnalytics();
+  const { t } = useI18n();
+
   return (
     <section
       ref={ref}
@@ -659,20 +685,19 @@ function UrgencySection() {
           id="urgencia-titulo"
           className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
         >
-          Los fines de semana{' '}
-          <span className="text-brand-pink italic">suelen llenarse con anticipación</span>
+          {t('urgency.h2.pre')}{' '}
+          <span className="text-brand-pink italic">{t('urgency.h2.highlight')}</span>
         </h2>
 
         <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-          Si estás planeando una pausa en pareja, te recomendamos revisar disponibilidad con tiempo.
-          Reserva directamente con nosotros y vive la experiencia completa.
+          {t('urgency.body')}
         </p>
 
         {/* Availability indicator */}
         <div className="flex justify-center mb-10">
           <div className="inline-flex items-center gap-2 bg-brand-pink/15 border border-brand-pink/30 text-brand-pink px-5 py-2.5 rounded-full text-sm font-medium">
             <span className="w-2 h-2 rounded-full bg-brand-pink animate-pulse" />
-            Disponibilidad limitada este fin de semana
+            {t('urgency.badge')}
           </div>
         </div>
 
@@ -685,7 +710,7 @@ function UrgencySection() {
             onClick={() => trackAvailabilityClick('urgency_section')}
             className="w-full sm:w-auto bg-brand-pink text-white px-10 py-[18px] rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1"
           >
-            Ver disponibilidad ahora
+            {t('urgency.cta.availability')}
           </a>
           <a
             href={WHATSAPP_URL}
@@ -694,7 +719,7 @@ function UrgencySection() {
             onClick={() => trackWhatsAppClick('urgency_section')}
             className="w-full sm:w-auto border-2 border-white/40 text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-white/10 transition-all duration-200 hover:-translate-y-1"
           >
-            Más información
+            {t('urgency.cta.info')}
           </a>
         </div>
       </div>
@@ -706,6 +731,16 @@ function UrgencySection() {
 function FaqSection() {
   const { ref, isVisible } = useScrollReveal();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useI18n();
+
+  const FAQ_I18N = [
+    { question: t('faq.q.1'), answer: t('faq.a.1') },
+    { question: t('faq.q.2'), answer: t('faq.a.2') },
+    { question: t('faq.q.3'), answer: t('faq.a.3') },
+    { question: t('faq.q.4'), answer: t('faq.a.4') },
+    { question: t('faq.q.5'), answer: t('faq.a.5') },
+    { question: t('faq.q.6'), answer: t('faq.a.6') },
+  ];
 
   const toggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
@@ -721,18 +756,18 @@ function FaqSection() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-brand-pink font-semibold tracking-widest uppercase text-sm mb-3">
-            Resolvemos tus dudas
+            {t('faq.badge')}
           </p>
           <h2
             id="faq-titulo"
             className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark"
           >
-            Preguntas frecuentes
+            {t('faq.h2')}
           </h2>
         </div>
 
         <div className="space-y-3">
-          {FAQ_ITEMS.map((item, index) => {
+          {FAQ_I18N.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <article key={index} className="bg-white rounded-2xl shadow-sm border border-brand-beige/50 overflow-hidden">
@@ -779,11 +814,12 @@ function FaqSection() {
 function CtaFinal() {
   const { ref, isVisible } = useScrollReveal();
   const { trackAvailabilityClick, trackWhatsAppClick } = useAnalytics();
+  const { t } = useI18n();
 
   const STEPS = [
-    { number: '1', label: 'Elige tu fecha' },
-    { number: '2', label: 'Confirma disponibilidad' },
-    { number: '3', label: 'Prepárate para desconectarte' },
+    { number: '1', label: t('cta.step.1') },
+    { number: '2', label: t('cta.step.2') },
+    { number: '3', label: t('cta.step.3') },
   ];
 
   return (
@@ -808,18 +844,18 @@ function CtaFinal() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-brand-pink/20 border border-brand-pink/40 text-brand-pink px-4 py-2 rounded-full text-sm font-medium tracking-wide mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-brand-pink animate-pulse" />
-          Disponibilidad limitada
+          {t('cta.badge')}
         </div>
 
         <h2
           id="cta-titulo"
           className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4"
         >
-          Reserva en 2 minutos
+          {t('cta.h2')}
         </h2>
 
         <p className="text-white/70 text-base mb-12">
-          Así de sencillo es empezar tu escapada perfecta.
+          {t('cta.subtitle')}
         </p>
 
         {/* Steps */}
@@ -850,7 +886,7 @@ function CtaFinal() {
             onClick={() => trackAvailabilityClick('cta_final')}
             className="w-full sm:w-auto bg-brand-pink text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1"
           >
-            Ver disponibilidad
+            {t('cta.btn.availability')}
           </a>
           <a
             href={WHATSAPP_URL}
@@ -859,13 +895,13 @@ function CtaFinal() {
             onClick={() => trackWhatsAppClick('cta_final')}
             className="w-full sm:w-auto flex items-center justify-center bg-brand-pink text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-brand-pink/90 transition-all duration-200 hover:shadow-2xl hover:shadow-brand-pink/50 hover:-translate-y-1"
           >
-            Escribir por correo
+            {t('cta.btn.email')}
           </a>
         </div>
 
         {/* Trust note */}
         <p className="text-white/50 text-sm">
-          Respuesta inmediata · Hablamos español · Confirmación al instante
+          {t('cta.trust')}
         </p>
       </div>
     </section>
@@ -875,7 +911,15 @@ function CtaFinal() {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 function Footer() {
   const { trackWhatsAppClick, trackEmailClick } = useAnalytics();
+  const { t } = useI18n();
   const currentYear = new Date().getFullYear();
+
+  const NAV_KEYS: Record<string, string> = {
+    '#cabanas': 'nav.cabanas',
+    '#experiencias': 'nav.experiencias',
+    '#faq': 'nav.faq',
+    '#reservar': 'nav.reservar',
+  };
 
   return (
     <footer className="bg-brand-dark border-t border-white/10 py-12" role="contentinfo">
@@ -885,15 +929,14 @@ function Footer() {
           <div>
             <Logo variant="light" size="lg" />
             <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-xs">
-              Finca cafetera boutique a 90 minutos de Bogotá. Cabañas privadas con tina,
-              desayuno y Coffee Tour incluido.
+              {t('footer.brand.desc')}
             </p>
           </div>
 
           {/* Links */}
           <div>
             <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">
-              Navegación
+              {t('footer.nav.title')}
             </h3>
             <ul className="space-y-2">
               {NAV_LINKS.map((link) => (
@@ -907,7 +950,7 @@ function Footer() {
                     }}
                     className="text-white/50 hover:text-white text-sm transition-colors duration-200"
                   >
-                    {link.label}
+                    {t(NAV_KEYS[link.href] || link.href)}
                   </a>
                 </li>
               ))}
@@ -917,7 +960,7 @@ function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">
-              Contacto
+              {t('footer.contact.title')}
             </h3>
             <ul className="space-y-3">
               <li>
@@ -945,7 +988,7 @@ function Footer() {
               </li>
               <li>
                 <span className="text-white/50 text-sm">
-                  Zipacón, Cundinamarca, Colombia
+                  {t('footer.location')}
                 </span>
               </li>
             </ul>
@@ -955,10 +998,10 @@ function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            &copy; {currentYear} La Palma &amp; El Tucán. Todos los derechos reservados.
+            &copy; {currentYear} {t('footer.copyright')}
           </p>
           <p className="text-white/20 text-xs">
-            Cabañas románticas cerca a Bogotá · Finca cafetera Zipacón
+            {t('footer.seo')}
           </p>
         </div>
       </div>
